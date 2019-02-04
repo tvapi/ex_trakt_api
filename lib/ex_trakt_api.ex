@@ -1,18 +1,27 @@
 defmodule ExTraktApi do
-  @moduledoc """
-  Documentation for ExTraktApi.
-  """
+  use HTTPoison.Base
 
-  @doc """
-  Hello world.
+  def process_url(endpoint) do
+    "https://api.trakt.tv/" <> endpoint
+  end
 
-  ## Examples
+  def process_response_body(body) do
+    JSX.decode!(body)
+  end
 
-      iex> ExTraktApi.hello()
-      :world
+  def make_request(endpoint, params \\ [], options \\ []) do
+    headers = [
+      "Content-Type": "application/json",
+      "trakt-api-key": api_key(),
+      "trakt-api-version": "2"
+    ]
 
-  """
-  def hello do
-    :world
+    query_params = if params == [], do: "/", else: "/?" <> URI.encode_query(params)
+    get!(endpoint <> query_params, headers, options)
+  end
+
+  def api_key do
+    Application.get_env(:ex_trakt_api, :api_key) ||
+      System.get_env("TRAKT_API_KEY")
   end
 end

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+#
+# This script sets up your local machine for development on ExTwilio.
+
+function no_credentials() {
+  echo "Trakt.tv credentials not set up. You should:"
+  echo ""
+  echo "$ cp .env.sample .env"
+  echo "$ vim .env"
+  echo "$ source .env"
+  exit 1
+}
+
+if [ ! $TRAKT_API_KEY ]; then
+  echo 'TRAKT_API_KEY'
+  no_credentials
+fi
+
+echo "-------------------------------"
+echo "Installing dependencies..."
+echo "-------------------------------"
+
+mix local.hex --force || { echo "Could not install Hex!"; exit 1; }
+mix deps.get --only test || { echo "Could not install dependencies!"; exit 1;}
+
+echo "-------------------------------"
+echo "Running tests..."
+echo "-------------------------------"
+
+bin/test || { exit 1; }
