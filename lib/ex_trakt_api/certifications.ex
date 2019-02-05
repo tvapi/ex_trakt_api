@@ -1,7 +1,7 @@
 defmodule ExTraktApi.Certifications do
   # https://trakt.docs.apiary.io/#reference/certifications/list/get-certifications
   def list(params \\ [], options \\ []) do
-    new_params = Enum.filter(params, fn {k, _} -> k != :type end)
-    ExTraktApi.make_request("certifications/#{params[:type]}", new_params, options)
+    "certifications/{type}"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 end

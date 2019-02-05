@@ -1,97 +1,109 @@
 defmodule ExTraktApi.Shows do
   # https://trakt.docs.apiary.io/#reference/shows/trending/get-trending-shows
   def trending(params \\ [], options \\ []) do
-    ExTraktApi.make_request("shows/trending", params, options)
+    "shows/trending"
+    |> ExTraktApi.make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/popular/get-popular-shows
   def popular(params \\ [], options \\ []) do
-    ExTraktApi.make_request("shows/popular", params, options)
+    "shows/popular"
+    |> ExTraktApi.make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/played/get-the-most-played-shows
   def played(params \\ [], options \\ []) do
-    new_params = Enum.filter(params, fn {k, _} -> k != :period end)
-    ExTraktApi.make_request("shows/played/#{params[:period]}", new_params, options)
+    "shows/played/{period}"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/watched/get-the-most-watched-shows
   def watched(params \\ [], options \\ []) do
-    new_params = Enum.filter(params, fn {k, _} -> k != :period end)
-    ExTraktApi.make_request("shows/watched/#{params[:period]}", new_params, options)
+    "shows/watched/{period}"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/collected/get-the-most-collected-shows
   def collected(params \\ [], options \\ []) do
-    new_params = Enum.filter(params, fn {k, _} -> k != :period end)
-    ExTraktApi.make_request("shows/collected/#{params[:period]}", new_params, options)
+    "shows/collected/{period}"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/anticipated/get-the-most-anticipated-shows
   def anticipated(params \\ [], options \\ []) do
-    ExTraktApi.make_request("shows/anticipated", params, options)
+    "shows/anticipated"
+    |> ExTraktApi.make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/updates/get-a-show
   def updates(params \\ [], options \\ []) do
-    new_params = Enum.filter(params, fn {k, _} -> k != :start_date end)
-    ExTraktApi.make_request("shows/updates/#{params[:start_date]}", new_params, options)
+    "shows/updates/{start_date}"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/summary/get-a-show
-  def summary(id, params \\ [], options \\ []) do
-    ExTraktApi.make_request("shows/#{id}", params, options)
+  def summary(params \\ [], options \\ []) do
+    "shows/{id}"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/aliases/get-all-show-aliases
-  def aliases(id, params \\ [], options \\ []) do
-    ExTraktApi.make_request("shows/#{id}/aliases", params, options)
+  def aliases(params \\ [], options \\ []) do
+    "shows/{id}/aliases"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/translations/get-all-show-translations
-  def translations(id, params \\ [], options \\ []) do
-    new_params = Enum.filter(params, fn {k, _} -> k != :language end)
-    ExTraktApi.make_request("shows/#{id}/translations/#{params[:language]}", new_params, options)
+  def translations(params \\ [], options \\ []) do
+    "shows/{id}/translations/{language}"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/lists/get-all-show-translations
-  def lists(id, params \\ [], options \\ []) do
-    new_params = Enum.filter(params, fn {k, _} -> k != :type || k != :sort end)
-    ExTraktApi.make_request("shows/#{id}/lists/#{params[:type]}/#{params[:sort]}", new_params, options)
+  def lists(params \\ [], options \\ []) do
+    "shows/{id}/lists/{type}/{sort}"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/people/get-all-show-translations
-  def people(id, params \\ [], options \\ []) do
-    ExTraktApi.make_request("shows/#{id}/people", params, options)
+  def people(params \\ [], options \\ []) do
+    "shows/{id}/people"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/ratings/get-show-ratings
-  def ratings(id, params \\ [], options \\ []) do
-    ExTraktApi.make_request("shows/#{id}/ratings", params, options)
+  def ratings(params \\ [], options \\ []) do
+    "shows/{id}/ratings"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/related/get-related-shows
-  def related(id, params \\ [], options \\ []) do
-    ExTraktApi.make_request("shows/#{id}/related", params, options)
+  def related(params \\ [], options \\ []) do
+    "shows/{id}/related"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/stats/get-show-stats
-  def stats(id, params \\ [], options \\ []) do
-    ExTraktApi.make_request("shows/#{id}/stats", params, options)
+  def stats(params \\ [], options \\ []) do
+    "shows/{id}/stats"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/watching/get-users-watching-right-now
-  def watching(id, params \\ [], options \\ []) do
-    ExTraktApi.make_request("shows/#{id}/watching", params, options)
+  def watching(params \\ [], options \\ []) do
+    "shows/{id}/watching"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/next-episode/get-next-episode
-  def next_episode(id, params \\ [], options \\ []) do
-    ExTraktApi.make_request("shows/#{id}/next_episode", params, options)
+  def next_episode(params \\ [], options \\ []) do
+    "shows/{id}/next_episode"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/shows/last-episode/get-last-episode
-  def last_episode(id, params \\ [], options \\ []) do
-    ExTraktApi.make_request("shows/#{id}/last_episode", params, options)
+  def last_episode(params \\ [], options \\ []) do
+    "shows/{id}/last_episode"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 end

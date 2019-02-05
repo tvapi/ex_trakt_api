@@ -23,7 +23,8 @@ defmodule ExTraktApi.MixProject do
     [
       {:httpoison, "~> 1.5"},
       {:envy, "~> 1.1.1"},
-      {:exjsx, "~> 3.2.0", app: false}
+      {:exjsx, "~> 3.2.0", app: false},
+      {:uri_template, "~>1.0"}
     ]
   end
 end

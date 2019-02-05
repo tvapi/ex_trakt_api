@@ -24,4 +24,10 @@ defmodule ExTraktApi do
     Application.get_env(:ex_trakt_api, :api_key) ||
       System.get_env("TRAKT_API_KEY")
   end
+
+  def expand_and_make_request(path, params \\ [], options \\ []) do
+    path
+    |> UriTemplate.expand(params)
+    |> ExTraktApi.make_request(params, options)
+  end
 end

@@ -1,22 +1,25 @@
 defmodule ExTraktApi.People do
   # https://trakt.docs.apiary.io/#reference/people/summary/get-a-single-person
-  def summary(id, params \\ [], options \\ []) do
-    ExTraktApi.make_request("people/#{id}", params, options)
+  def summary(params \\ [], options \\ []) do
+    "people/{id}"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/people/movies/get-movie-credits
-  def movies(id, params \\ [], options \\ []) do
-    ExTraktApi.make_request("people/#{id}/movies", params, options)
+  def movies(params \\ [], options \\ []) do
+    "people/{id}/movies"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/people/shows/get-show-credits
-  def shows(id, params \\ [], options \\ []) do
-    ExTraktApi.make_request("people/#{id}/shows", params, options)
+  def shows(params \\ [], options \\ []) do
+    "people/{id}/shows"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 
   # https://trakt.docs.apiary.io/#reference/people/lists/get-lists-containing-this-person
-  def lists(id, params \\ [], options \\ []) do
-    new_params = Enum.filter(params, fn {k, _} -> k != :type || k != :sort end)
-    ExTraktApi.make_request("people/#{id}/lists/#{params[:type]}/#{params[:sort]}", new_params, options)
+  def lists(params \\ [], options \\ []) do
+    "people/{id}/lists/{type}/{sort}"
+    |> ExTraktApi.expand_and_make_request(params, options)
   end
 end
